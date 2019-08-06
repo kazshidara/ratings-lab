@@ -28,7 +28,7 @@ class User(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
         return f"<User user_id = {self.user_id} email = {self.email}>"
-        
+
 
 class Movie(db.Model):
     """Movie of ratings website."""
@@ -36,9 +36,9 @@ class Movie(db.Model):
     __tablename__ = "movies"
 
     movie_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    title = db.Column(db.String(70), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
     released_at = db.Column(db.DateTime, nullable=True)
-    imdb_url = db.Column(db.String(100), nullable=True)
+    imdb_url = db.Column(db.String(200), nullable=True)
 
 class Rating(db.Model):
     """User's rating of movie on website"""

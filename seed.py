@@ -8,6 +8,7 @@ from model import Movie
 from model import connect_to_db, db
 from server import app
 import datetime 
+import re
 
 
 def load_users():
@@ -37,9 +38,25 @@ def load_users():
 
 def load_movies():
     """Load movies from u.item into database."""
+
+    #Delete all rows in table so if we need to run a second time, 
+    # not adding duplicate users
+
+    Movie.query.delete()
+
+
     for row in open("seed_data/u.item"):
         row = row.rstrip()
-        movie_id, title, released_at, weird_bar, imdb_url, *genres = row.split("|")
+        movie_id, title, released_str, weird_bar, imdb_url, *genre = row.split("|")
+
+        if released_str:
+            released_at = datetime.datetime.strptime(released_str, "%d-%b-%Y")
+        else:
+            released_at = None
+
+
+        #get rid of the (1994) and similar dates from title 
+        title = title[:-7]
 
         movie = Movie(movie_id=movie_id,
                       title=title, 
@@ -53,6 +70,20 @@ def load_movies():
 
 def load_ratings():
     """Load ratings from u.data into database."""
+
+    Rating.query.delete()
+    
+    for row in open("seed_data/u.data"):
+        row = row.rstrip()
+        user_id, movie_id, score, timestamp= row.split("\t")
+
+        rating = Rating(movie_id=movie_id, 
+                        user_id=user_id,
+                        score=score)
+
+        db.session.add(rating)
+
+    db.session.commit()
 
 
 def set_val_user_id():
