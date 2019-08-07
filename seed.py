@@ -72,7 +72,7 @@ def load_ratings():
     """Load ratings from u.data into database."""
 
     Rating.query.delete()
-    
+
     for row in open("seed_data/u.data"):
         row = row.rstrip()
         user_id, movie_id, score, timestamp= row.split("\t")
