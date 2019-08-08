@@ -39,6 +39,7 @@ class Movie(db.Model):
     title = db.Column(db.String(100), nullable=False)
     released_at = db.Column(db.DateTime, nullable=True)
     imdb_url = db.Column(db.String(200), nullable=True)
+    # increased String limit for URL, had to drop db and create again
 
 class Rating(db.Model):
     """User's rating of movie on website"""
@@ -48,11 +49,14 @@ class Rating(db.Model):
     rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    # Foreign keys allow for relationship user & movie, changed nullable to default
+    # true just in case there are discrepancies in the other table(s)
     score = db.Column(db.Integer, nullable=False)
 
     user = db.relationship('User', backref=db.backref('ratings', order_by=rating_id))
     movie = db.relationship('Movie', backref=db.backref('ratings', order_by=rating_id))
-
+    # Defined relationships between the User/Movie classes and a queried list of 
+    # all Rating objects
 
 ##############################################################################
 # Helper functions
