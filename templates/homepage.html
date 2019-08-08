@@ -9,11 +9,10 @@
 <h2>Users</h2>
 <p><a href="/users">View all users</a></p>
 
-<form action="/login_form" method="POST">
-    <input type="text" name="email" placeholder="Enter your Email">
-    <input type="text" name="pass" placeholder="Enter Password"> 
-    <input type="submit">
-</form>
+<!-- Logout option for users here -->
+
+
+<input type="button" onclick="location.href = '/log_out';" value="Log Out">
 
 {% endblock %}
 

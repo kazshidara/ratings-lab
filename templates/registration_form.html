@@ -5,11 +5,26 @@
 
 
   <form action="/processed_form">
-    <input type="text" name="email" placeholder="email">
-    <input type="text" name="pass" placeholder="password">
+    <label> Register as a new user!:
+        <input type="text" name="email" placeholder="email">
+        <input type="text" name="pass" placeholder="password">
 
-    <input type="submit" placeholder="submit">
+        <input type="submit" placeholder="submit">
+    </label>
   </form>
+
+  <br>
+  <br>
+
+  <form action="/login_form" method="POST">
+    <label> Log In:
+        <input type="text" name="email" placeholder="Enter your Email">
+        <input type="text" name="pass" placeholder="Enter Password"> 
+        <input type="submit">
+    </label>
+</form>
+
+
 
 
 {% endblock %}

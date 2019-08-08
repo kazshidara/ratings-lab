@@ -3,10 +3,10 @@
 
   <h2>You made it!</h2>
 
-    <a href="/users/{{ newuser.user_id }}">
-      {{ newuser.email }} {{ newuser.user_id }}
+    <a href="/users/{{ user.user_id }}">
+      {{ user.email }} {{ user.user_id }}
       
 {% endblock %}
 
 <!-- User directed to this page after inputting valid email and password. Get user 
-email and id from newuser object (they've been inserted into db) -->
+email and id from user object (they've been inserted into db) -->

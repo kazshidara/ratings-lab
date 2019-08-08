@@ -70,29 +70,50 @@ def process_form():
         newuser.email = email
         # set the email to the input email
 
+        newuser.password = password
+        # set the password to input password
+
         db.session.commit()
         # commit the session
 
         flash('else !')
 
-        return render_template("new_page.html", newuser=newuser)
+        return render_template("new_page.html", user=newuser)
 
 
 @app.route('/login_form', methods=['POST'])
 def login():
+    """User can login if password matches one in db"""
+
     email = request.form.get('email')
     password = request.form.get('pass')
 
-    print('EMAILLLLL!!!!!!!', email)
+    user = User.query.filter(User.email==email).first()
 
-    if User.query.filter(User.email==email).first():
-        print('Yeaaaaaaahh, you in derr')
-        return render_template('new_page.html')
+    session['user-id'] = user.user_id
+    
+    if password == user.password:
+
+        flash("You Logged in Successfully! ")
+        return redirect('/')
 
     else:
-        print('else, SORRY')
+        flash("Sorry, you entered the wrong password or email. Try again!")
         return redirect('/registration')
 
+
+@app.route('/log_out')
+def log_out():
+    """Clear session of user_id when user wants to log out"""
+   
+
+    session.clear() 
+
+    return render_template('registration_form.html')
+
+
+
+   
 
 
 
@@ -104,7 +125,7 @@ if __name__ == "__main__":
     app.debug = True
     # make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
-    # DEBUG_TB_INTERCEPT_REDIRECTS = False
+    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     connect_to_db(app)
 

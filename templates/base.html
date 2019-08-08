@@ -9,5 +9,14 @@
 
     {% block content %} PUT CONTENT HEREEEE {% endblock %}
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <class=flashes>
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
 </body>
 </html>
