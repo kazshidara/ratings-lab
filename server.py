@@ -36,6 +36,20 @@ def user_list():
     return render_template("user_list.html", users=users)
 
 
+@app.route('/user_profile')
+def show_user_profile():
+    """Show individual user profile"""
+
+    user_id = request.args.get('user_id')
+    # getting the user_id value passed in from the <a> tag
+
+    user = User.query.get(user_id)
+    # queries for the user obj @ the user id, set to a variable to pass into the html page
+    
+    return render_template("user_profile.html", user=user)
+
+
+
 @app.route('/registration')
 def show_reg_form():
     """Renders registration_form page for users to fill out"""
@@ -113,7 +127,8 @@ def log_out():
 
 
 
-   
+
+
 
 
 
